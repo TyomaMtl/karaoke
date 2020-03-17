@@ -1,10 +1,11 @@
-export default class Karaoke {
+class Karaoke {
 
-    audioName: string
-    player: string
-    logs: string[]
-
-    constructor(audioName: string, player: string) {
+    /**
+     * @description create a karaoke
+     * @param {string} audio (audio name)
+     * @param {string} control (div where the audio will be loaded)
+     */
+    constructor(audioName, player) {
         this.audioName = audioName
         this.player = player
         this.logs = []
@@ -24,19 +25,13 @@ export default class Karaoke {
     
             audio.appendChild(source)
     
-            return document.getElementById(this.player).appendChild(audio)
+            document.getElementById(this.player).appendChild(audio)
         }
 
         return false
     }
 
-    getLogs() {
-        return this.logs.forEach(log => {
-            console.log(log)
-        });
-    }
-
-    private audioUrl() {
+    audioUrl() {
         const audioUrl = window.location.origin + '/src/audio/sounds/' + this.audioName + '.mp3'
 
         if (this.fileExist(audioUrl)) {
@@ -47,7 +42,7 @@ export default class Karaoke {
         return false
     }
 
-    private lyricsUrl() {
+    lyricsUrl() {
         const lyricsUrl = window.location.origin + '/src/audio/lyrics/' + this.audioName + '.txt'
 
         if (this.fileExist(lyricsUrl)) {
@@ -58,7 +53,7 @@ export default class Karaoke {
         return false
     }
 
-    private fileExist(fileUrl) {
+    fileExist(fileUrl) {
         return fetch(fileUrl).then((response) => {
             return response
         }).then((data) => {
@@ -69,6 +64,12 @@ export default class Karaoke {
             this.logs.push('File : ' + fileUrl + 'not found')
             return false
         })
+    }
+
+    getLogs() {
+        return this.logs.forEach(log => {
+            console.log(log)
+        });
     }
 
     // var timeToText  = {};
