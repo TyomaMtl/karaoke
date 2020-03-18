@@ -29,6 +29,8 @@ class Karaoke {
 
             // audio actions
             const player = document.getElementById("player")
+            
+            this.getLyrics()
 
             player.onplay = () => {
                 console.log('play')
@@ -75,6 +77,28 @@ class Karaoke {
             this.logs.push('File : ' + fileUrl + 'not found')
             return false
         })
+    }
+
+    getLyrics() {
+        const lyricsUrl = this.lyricsUrl()
+        const lyrics = []
+
+        if (lyricsUrl) {
+
+            let fileContent = fetch(lyricsUrl).then((response) => {
+                return response.text()
+            }).then((data) => {
+                console.log(data)
+                return data
+            })
+
+            // parse fileContent
+
+            return lyrics
+        }
+
+        this.logs.push("getLyrics : impossible de parser le fichier, lyricsUrl return false")
+        return false
     }
 
     getLogs() {
