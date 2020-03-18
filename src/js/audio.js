@@ -5,9 +5,9 @@ class Karaoke {
      * @param {string} audio (audio name)
      * @param {string} control (div where the audio will be loaded)
      */
-    constructor(audioName, player) {
+    constructor(audioName, playerContainer) {
         this.audioName = audioName
-        this.player = player
+        this.playerContainer = playerContainer
         this.logs = []
     }
 
@@ -15,8 +15,9 @@ class Karaoke {
         const audioUrl = this.audioUrl()
 
         if (audioUrl) {
+            // audio player
             let audio = document.createElement("audio")
-            audio.setAttribute("id", this.player)
+            audio.setAttribute("id", "player")
             audio.setAttribute("controls", "controls")
     
             let source = document.createElement("source")
@@ -24,8 +25,18 @@ class Karaoke {
             source.setAttribute("type", "audio/mpeg")
     
             audio.appendChild(source)
-    
-            document.getElementById(this.player).appendChild(audio)
+            document.getElementById(this.playerContainer).appendChild(audio)
+
+            // audio actions
+            const player = document.getElementById("player")
+
+            player.onplay = () => {
+                console.log('play')
+            }
+
+            player.onpause = () => {
+                console.log('pause')
+            }
         }
 
         return false
