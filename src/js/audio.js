@@ -95,10 +95,11 @@ class Karaoke {
                 const lyrics = {}
 
                 fileContentAsArray.forEach((line) => {
-                    let timeLine = line.substring(line.indexOf('[') + 1, line.indexOf(']'))                    
+                    let hms = line.substring(line.indexOf('[') + 1, line.indexOf(']'))
+                    let s = this.hmsToSecondsOnly(hms)
                     let lyric = line.split(']')[1]
 
-                    lyrics[timeLine] = lyric
+                    lyrics[s] = {lyric: lyric, time: hms, second: s}
                 })
 
                 return lyrics
@@ -107,6 +108,18 @@ class Karaoke {
 
         this.logs.push("getLyrics : impossible de parser le fichier, lyricsUrl return false")
         return false
+    }
+
+    hmsToSecondsOnly(str) {
+        var p = str.split(':'),
+            s = 0, m = 1;
+
+        while (p.length > 0) {
+            s += m * parseInt(p.pop(), 10);
+            m *= 60;
+        }
+
+        return s;
     }
 
     getLogs() {
