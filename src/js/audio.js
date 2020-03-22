@@ -29,9 +29,14 @@ class Karaoke {
 
             // audio actions
             const player = document.getElementById("player")
-            
+
             this.getLyrics().then((lyrics) => {
-                console.log(lyrics)
+                return player.ontimeupdate = () => {
+                    let currentTime = Math.floor(player.currentTime)
+                    if (lyrics[currentTime] != undefined) {
+                        console.log(lyrics[currentTime].lyric)
+                    }
+                }
             })
 
             player.onplay = () => {
