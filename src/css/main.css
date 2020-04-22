@@ -7,3 +7,8 @@ audio{
 	display: block;
 	margin: 0 auto;
 }
+
+.lyric {
+	font-size: 30px;
+	color: #ffffff;
+}

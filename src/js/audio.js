@@ -4,10 +4,12 @@ class Karaoke {
      * @description create a karaoke
      * @param {string} audio (audio name)
      * @param {string} control (div where the audio will be loaded)
+     * @param {string} lyricContainer (div where to show current lyric)
      */
-    constructor(audioName, playerContainer) {
+    constructor(audioName, playerContainer, lyricContainer) {
         this.audioName = audioName
         this.playerContainer = playerContainer
+        this.lyricContainer = lyricContainer
         this.logs = []
     }
 
@@ -29,12 +31,14 @@ class Karaoke {
 
             // audio actions
             const player = document.getElementById("player")
+            const lyric = document.getElementById(this.lyricContainer)
 
             this.getLyrics().then((lyrics) => {
                 return player.ontimeupdate = () => {
                     let currentTime = Math.floor(player.currentTime)
                     if (lyrics[currentTime] != undefined) {
                         console.log(lyrics[currentTime].lyric)
+                        lyric.textContent = lyrics[currentTime].lyric
                     }
                 }
             })

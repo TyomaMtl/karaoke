@@ -9,9 +9,11 @@
 
 		<div id="myAudio"><!-- audio will be loaded here --></div>
 
+		<div id="lyric" class="lyric"></div>
+
 		<script type="text/javascript" src="src/js/audio.js"></script>
 		<script>
-			let audio = new Karaoke('rage-against-the-machine-killing-in-the-name', 'myAudio')
+			let audio = new Karaoke('rage-against-the-machine-killing-in-the-name', 'myAudio', 'lyric')
 			audio.generate()
 			audio.getLogs()
 		</script>
